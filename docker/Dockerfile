@@ -12,7 +12,7 @@ RUN docker/build.sh
 # Final image
 
 FROM debian:bullseye-slim
-LABEL maintainer="Sergey Alexandrovich <darthsim@gmail.com>"
+LABEL maintainer=""
 
 RUN apt-get update \
   && apt-get upgrade -y \
@@ -37,6 +37,15 @@ COPY --from=0 /usr/local/lib /usr/local/lib
 COPY docker/entrypoint.sh /usr/local/bin/
 
 COPY NOTICE /usr/local/share/doc/imgproxy/
+
+ENV IMGPROXY_MAX_ANIMATION_FRAMES=42
+ENV IMGPROXY_USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36"
+ENV IMGPROXY_MAX_SRC_RESOLUTION=100
+ENV IMGPROXY_MAX_ANIMATION_FRAME_RESOLUTION=100
+ENV IMGPROXY_READ_TIMEOUT=100
+ENV IMGPROXY_DOWNLOAD_TIMEOUT=100
+ENV IMGPROXY_WRITE_TIMEOUT=100
+ENV IMGPROXY_ALLOWED_SOURCES="https://,http://*"
 
 ENV VIPS_WARNING=0
 ENV MALLOC_ARENA_MAX=2

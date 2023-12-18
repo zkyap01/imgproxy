@@ -155,10 +155,13 @@ func BuildImageRequest(ctx context.Context, imageURL string, header http.Header,
 	}
 
 	req.Header.Set("User-Agent", config.UserAgent)
+	req.Header.Set("Accept", "*/*")
 
 	for k, v := range header {
-		if len(v) > 0 {
-			req.Header.Set(k, v[0])
+		if k != "Accept" {
+			if len(v) > 0 {
+				req.Header.Set(k, v[0])
+			}
 		}
 	}
 
